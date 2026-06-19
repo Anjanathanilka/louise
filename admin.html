@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Products</title>
+
+<style>
+body{
+font-family:Arial;
+padding:30px;
+}
+
+input,select{
+display:block;
+width:350px;
+padding:10px;
+margin:10px 0;
+}
+
+button{
+padding:12px;
+width:350px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Add Product</h2>
+
+<input id="title" placeholder="Title">
+
+<input id="image" placeholder="Image URL">
+
+<input id="price" type="number" placeholder="Price">
+
+<input id="originalPrice" type="number" placeholder="Original Price">
+
+<select id="category">
+<option>dresses</option>
+<option>tops</option>
+<option>shoes</option>
+<option>accessories</option>
+</select>
+
+<input id="buttonUrl" placeholder="Affiliate URL">
+
+<button onclick="saveProduct()">
+Save Product
+</button>
+
+<script type="module">
+
+import {
+db,
+ref,
+push,
+set
+}
+from "./firebase.js";
+
+window.saveProduct = async () => {
+
+const productsRef=ref(db,"products");
+
+const newProduct=push(productsRef);
+
+await set(newProduct,{
+
+title:
+document.getElementById("title").value,
+
+image:
+document.getElementById("image").value,
+
+price:
+Number(document.getElementById("price").value),
+
+originalPrice:
+Number(document.getElementById("originalPrice").value),
+
+category:
+document.getElementById("category").value,
+
+buttonUrl:
+document.getElementById("buttonUrl").value,
+
+rating:4.7,
+reviews:100
+
+});
+
+alert("Product Added!");
+
+};
+
+</script>
+
+</body>
+</html>
