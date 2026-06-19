@@ -357,14 +357,17 @@
 
         .product-image {
             width: 100%;
-            height: 320px;
-            object-fit: cover;
+            height: 280px;
+            object-fit: contain;
+            object-position: center;
             display: block;
-            transition: transform 0.5s ease;
+            background: #f8f8f8;
+            transition: transform 0.4s ease;
+            padding: 10px;
         }
 
         .product-card:hover .product-image {
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
 
         .product-image-container {
@@ -863,6 +866,7 @@
     </style>
     <base target="_blank">
 <base target="_blank">
+<base target="_blank">
 </head>
 <body>
 
@@ -949,11 +953,11 @@
         </div>
 
         <div class="category-filter fade-in">
-            <button class="filter-btn active" onclick="filterProducts('all')">All</button>
-            <button class="filter-btn" onclick="filterProducts('dresses')">Dresses</button>
-            <button class="filter-btn" onclick="filterProducts('tops')">Tops</button>
-            <button class="filter-btn" onclick="filterProducts('shoes')">Shoes</button>
-            <button class="filter-btn" onclick="filterProducts('accessories')">Accessories</button>
+            <button class="filter-btn active" onclick="filterProducts('all', this)">All</button>
+            <button class="filter-btn" onclick="filterProducts('dresses', this)">Dresses</button>
+            <button class="filter-btn" onclick="filterProducts('tops', this)">Tops</button>
+            <button class="filter-btn" onclick="filterProducts('shoes', this)">Shoes</button>
+            <button class="filter-btn" onclick="filterProducts('accessories', this)">Accessories</button>
         </div>
 
         <div class="products-grid" id="productsGrid">
@@ -1136,13 +1140,13 @@ async function loadProducts() {
 
 }
 
-window.filterProducts = function(category){
+window.filterProducts = function(category, clickedBtn){
 
     document.querySelectorAll('.filter-btn').forEach(btn=>{
         btn.classList.remove('active');
     });
 
-    event.target.classList.add('active');
+    clickedBtn.classList.add('active');
 
     renderProducts(category);
 
