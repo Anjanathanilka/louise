@@ -24,6 +24,10 @@
             --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             color: var(--text);
@@ -52,7 +56,6 @@
             align-items: center;
         }
 
-        /* Logo Styles - Using Image */
         .logo {
             display: flex;
             align-items: center;
@@ -68,14 +71,13 @@
             display: block;
         }
 
-        /* Fallback text logo if image fails */
         .logo-text {
             font-family: 'Playfair Display', serif;
             font-size: 1.6rem;
             font-weight: 700;
             color: var(--primary);
             letter-spacing: -0.5px;
-            display: none; /* Hidden by default, shown if image fails */
+            display: none;
         }
 
         .logo-text span {
@@ -257,50 +259,29 @@
             opacity: 0.8;
         }
 
-        /* Products Section */
-        .products-section {
-            padding: 5rem 2rem;
+        /* Category Navigation Bar */
+        .category-nav {
+            background: white;
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 65px;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .category-nav-container {
             max-width: 1200px;
             margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .section-header p {
-            color: #888;
-            font-size: 1rem;
-        }
-
-        .section-divider {
-            width: 60px;
-            height: 3px;
-            background: var(--accent);
-            margin: 1rem auto;
-            border-radius: 2px;
-        }
-
-        /* Category Filter */
-        .category-filter {
             display: flex;
             justify-content: center;
             gap: 1rem;
-            margin-bottom: 3rem;
             flex-wrap: wrap;
         }
 
-        .filter-btn {
-            padding: 0.6rem 1.5rem;
-            border: 1px solid var(--border);
+        .cat-nav-btn {
+            padding: 0.7rem 1.8rem;
+            border: 2px solid var(--border);
             background: white;
             color: var(--text);
             border-radius: 50px;
@@ -308,12 +289,72 @@
             font-weight: 500;
             transition: all 0.3s;
             font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .filter-btn:hover, .filter-btn.active {
+        .cat-nav-btn:hover, .cat-nav-btn.active {
             background: var(--primary);
             color: white;
             border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Category Sections */
+        .category-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-section:nth-child(even) {
+            background: var(--light-bg);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .category-title-main {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .category-count {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .section-divider {
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+            margin-bottom: 1.5rem;
         }
 
         /* Product Grid */
@@ -481,6 +522,14 @@
 
         .add-to-cart-btn:active {
             transform: translateY(0);
+        }
+
+        .no-products-msg {
+            text-align: center;
+            padding: 3rem;
+            color: #888;
+            font-size: 1.1rem;
+            grid-column: 1 / -1;
         }
 
         /* Trust Section */
@@ -804,21 +853,6 @@
             opacity: 0.8;
         }
 
-        /* Loading Spinner */
-        .spinner {
-            display: none;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
@@ -847,8 +881,17 @@
                 grid-template-columns: 1fr;
             }
 
-            .section-header h2 {
-                font-size: 1.8rem;
+            .category-title-main {
+                font-size: 1.6rem;
+            }
+
+            .category-nav-container {
+                gap: 0.5rem;
+            }
+
+            .cat-nav-btn {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.8rem;
             }
         }
 
@@ -864,8 +907,6 @@
             transform: translateY(0);
         }
     </style>
-    <base target="_blank">
-<base target="_blank">
 <base target="_blank">
 </head>
 <body>
@@ -873,18 +914,10 @@
     <!-- Header -->
     <header id="header">
         <div class="header-container">
-            <!-- Logo with Image -->
             <a href="#" class="logo">
-                <!-- OPTION 1: Local file (same folder as HTML) -->
                 <img src="logo.jpg" alt="Louisy Vuittonies" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-
-                <!-- OPTION 2: Online URL (replace with your hosted logo) -->
-                <!-- <img src="https://your-site.com/logo.jpg" alt="Louisy Vuittonies" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"> -->
-
-                <!-- Fallback Text Logo (shows if image fails) -->
                 <span class="logo-text">Louisy <span>Vuittonies</span></span>
             </a>
-
             <nav>
                 <ul>
                     <li><a href="#home">Home</a></li>
@@ -944,24 +977,99 @@
         </div>
     </div>
 
-    <!-- Products Section -->
-    <section class="products-section" id="collection">
-        <div class="section-header fade-in">
-            <h2>Featured Collection</h2>
-            <div class="section-divider"></div>
-            <p>Handpicked styles for every occasion</p>
+    <!-- Category Navigation Bar -->
+    <div class="category-nav" id="collection">
+        <div class="category-nav-container">
+            <a href="#tops" class="cat-nav-btn">👕 Tops</a>
+            <a href="#dresses" class="cat-nav-btn">👗 Dresses</a>
+            <a href="#jeans" class="cat-nav-btn">👖 Jeans</a>
+            <a href="#short" class="cat-nav-btn">🩳 Short</a>
+            <a href="#accessories" class="cat-nav-btn">👜 Accessories</a>
+            <a href="#footwear" class="cat-nav-btn">👠 Footwear</a>
         </div>
+    </div>
 
-        <div class="category-filter fade-in">
-            <button class="filter-btn active" onclick="filterProducts('all', this)">All</button>
-            <button class="filter-btn" onclick="filterProducts('dresses', this)">Dresses</button>
-            <button class="filter-btn" onclick="filterProducts('tops', this)">Tops</button>
-            <button class="filter-btn" onclick="filterProducts('shoes', this)">Shoes</button>
-            <button class="filter-btn" onclick="filterProducts('accessories', this)">Accessories</button>
+    <!-- Tops Section -->
+    <section class="category-section" id="tops">
+        <div class="category-header">
+            <div>
+                <h2 class="category-title-main"><span class="category-icon">👕</span> Tops</h2>
+                <div class="section-divider"></div>
+            </div>
+            <span class="category-count" id="topsCount">Loading...</span>
         </div>
+        <div class="products-grid" id="topsGrid">
+            <div class="no-products-msg">Loading tops...</div>
+        </div>
+    </section>
 
-        <div class="products-grid" id="productsGrid">
-            <!-- Products will be injected by JavaScript -->
+    <!-- Dresses Section -->
+    <section class="category-section" id="dresses">
+        <div class="category-header">
+            <div>
+                <h2 class="category-title-main"><span class="category-icon">👗</span> Dresses</h2>
+                <div class="section-divider"></div>
+            </div>
+            <span class="category-count" id="dressesCount">Loading...</span>
+        </div>
+        <div class="products-grid" id="dressesGrid">
+            <div class="no-products-msg">Loading dresses...</div>
+        </div>
+    </section>
+
+    <!-- Jeans Section -->
+    <section class="category-section" id="jeans">
+        <div class="category-header">
+            <div>
+                <h2 class="category-title-main"><span class="category-icon">👖</span> Jeans</h2>
+                <div class="section-divider"></div>
+            </div>
+            <span class="category-count" id="jeansCount">Loading...</span>
+        </div>
+        <div class="products-grid" id="jeansGrid">
+            <div class="no-products-msg">Loading jeans...</div>
+        </div>
+    </section>
+
+    <!-- Short Section -->
+    <section class="category-section" id="short">
+        <div class="category-header">
+            <div>
+                <h2 class="category-title-main"><span class="category-icon">🩳</span> Short</h2>
+                <div class="section-divider"></div>
+            </div>
+            <span class="category-count" id="shortCount">Loading...</span>
+        </div>
+        <div class="products-grid" id="shortGrid">
+            <div class="no-products-msg">Loading shorts...</div>
+        </div>
+    </section>
+
+    <!-- Accessories Section -->
+    <section class="category-section" id="accessories">
+        <div class="category-header">
+            <div>
+                <h2 class="category-title-main"><span class="category-icon">👜</span> Accessories</h2>
+                <div class="section-divider"></div>
+            </div>
+            <span class="category-count" id="accessoriesCount">Loading...</span>
+        </div>
+        <div class="products-grid" id="accessoriesGrid">
+            <div class="no-products-msg">Loading accessories...</div>
+        </div>
+    </section>
+
+    <!-- Footwear Section -->
+    <section class="category-section" id="footwear">
+        <div class="category-header">
+            <div>
+                <h2 class="category-title-main"><span class="category-icon">👠</span> Footwear</h2>
+                <div class="section-divider"></div>
+            </div>
+            <span class="category-count" id="footwearCount">Loading...</span>
+        </div>
+        <div class="products-grid" id="footwearGrid">
+            <div class="no-products-msg">Loading footwear...</div>
         </div>
     </section>
 
@@ -1003,10 +1111,10 @@
 
     <!-- Testimonials -->
     <section class="testimonials-section">
-        <div class="section-header fade-in">
-            <h2>What Our Customers Say</h2>
-            <div class="section-divider"></div>
-            <p>Real reviews from fashion lovers</p>
+        <div class="section-header fade-in" style="text-align:center;margin-bottom:3rem;">
+            <h2 style="font-family:'Playfair Display',serif;font-size:2.5rem;color:var(--primary);margin-bottom:0.5rem;">What Our Customers Say</h2>
+            <div style="width:60px;height:3px;background:var(--accent);margin:1rem auto;border-radius:2px;"></div>
+            <p style="color:#888;font-size:1rem;">Real reviews from fashion lovers</p>
         </div>
         <div class="testimonials-grid">
             <div class="testimonial-card fade-in">
@@ -1061,7 +1169,6 @@
     <footer>
         <div class="footer-container">
             <div class="footer-brand">
-                <!-- Footer Logo -->
                 <img src="logo.jpg" alt="Louisy Vuittonies" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                 <span class="logo-text">Louisy <span>Vuittonies</span></span>
                 <p>Your destination for premium women's fashion. We curate the best styles so you don't have to.</p>
@@ -1069,11 +1176,11 @@
             <div class="footer-links">
                 <h4>Shop</h4>
                 <ul>
-                    <li><a href="#">Dresses</a></li>
-                    <li><a href="#">Tops & Blouses</a></li>
-                    <li><a href="#">Shoes</a></li>
-                    <li><a href="#">Accessories</a></li>
-                    <li><a href="#">Sale</a></li>
+                    <li><a href="#dresses">Dresses</a></li>
+                    <li><a href="#tops">Tops & Blouses</a></li>
+                    <li><a href="#footwear">Shoes</a></li>
+                    <li><a href="#accessories">Accessories</a></li>
+                    <li><a href="#jeans">Jeans</a></li>
                 </ul>
             </div>
             <div class="footer-links">
@@ -1111,117 +1218,118 @@
     </div>
 
     <script type="module">
+        import { db, ref, get } from "./firebase.js";
 
-import { db, ref, get } from "./firebase.js";
+        let products = [];
+        let cartCount = 0;
 
-let products = [];
-let cartCount = 0;
+        const categories = ["tops", "dresses", "jeans", "short", "accessories", "footwear"];
 
-async function loadProducts() {
+        async function loadProducts() {
+            const snap = await get(ref(db, "products"));
 
-    const snap = await get(ref(db, "products"));
+            products = [];
 
-    products = [];
+            if (snap.exists()) {
+                snap.forEach(child => {
+                    products.push({
+                        id: child.key,
+                        ...child.val()
+                    });
+                });
+            }
 
-    if (snap.exists()) {
+            renderAllCategories();
+        }
 
-        Object.entries(snap.val()).forEach(([id, data]) => {
+        function renderAllCategories() {
+            categories.forEach(cat => {
+                const catProducts = products.filter(p => p.category === cat);
+                const grid = document.getElementById(cat + "Grid");
+                const countEl = document.getElementById(cat + "Count");
 
-            products.push({
-                id,
-                ...data
+                if (countEl) {
+                    countEl.textContent = catProducts.length + " items";
+                }
+
+                if (grid) {
+                    if (catProducts.length === 0) {
+                        grid.innerHTML = `<div class="no-products-msg">No ${cat} available yet. Check back soon!</div>`;
+                    } else {
+                        grid.innerHTML = catProducts.map(product => `
+                            <div class="product-card">
+                                <div class="product-image-container">
+                                    <img src="${product.image}" class="product-image" alt="${product.title}" onerror="this.src='https://via.placeholder.com/280x280?text=No+Image'">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-category">${product.category}</div>
+                                    <h3 class="product-title">${product.title}</h3>
+                                    <div class="product-rating">
+                                        <span class="stars">⭐ ${product.rating || 4.7}</span>
+                                        <span class="rating-count">(${product.reviews || 100} reviews)</span>
+                                    </div>
+                                    <div class="product-price">
+                                        <span class="current-price">$${product.price}</span>
+                                        <span class="original-price">$${product.originalPrice}</span>
+                                        <span class="discount-tag">${Math.round((1 - product.price/product.originalPrice)*100)}% OFF</span>
+                                    </div>
+                                    <button class="add-to-cart-btn" onclick="window.open('${product.buttonUrl}','_blank')">
+                                        View Product
+                                    </button>
+                                </div>
+                            </div>
+                        `).join("");
+                    }
+                }
+            });
+        }
+
+        window.showCartMessage = function() {
+            alert("Cart feature demo");
+        };
+
+        window.handleNewsletter = function(e){
+            e.preventDefault();
+            alert("Subscribed!");
+        };
+
+        // Highlight active category nav on scroll
+        function highlightActiveNav() {
+            const sections = categories.map(c => document.getElementById(c)).filter(Boolean);
+            const navBtns = document.querySelectorAll('.cat-nav-btn');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
             });
 
+            navBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('href') === '#' + current) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', highlightActiveNav);
+
+        // Scroll animation observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            loadProducts();
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
         });
-
-    }
-
-    renderProducts();
-
-}
-
-window.filterProducts = function(category, clickedBtn){
-
-    document.querySelectorAll('.filter-btn').forEach(btn=>{
-        btn.classList.remove('active');
-    });
-
-    clickedBtn.classList.add('active');
-
-    renderProducts(category);
-
-};
-
-function renderProducts(filter="all") {
-
-    const grid = document.getElementById("productsGrid");
-
-    const filtered =
-        filter === "all"
-        ? products
-        : products.filter(p => p.category === filter);
-
-    grid.innerHTML = filtered.map(product => `
-
-        <div class="product-card">
-
-            <div class="product-image-container">
-                <img
-                src="${product.image}"
-                class="product-image"
-                alt="${product.title}">
-            </div>
-
-            <div class="product-info">
-
-                <div class="product-category">
-                    ${product.category}
-                </div>
-
-                <h3 class="product-title">
-                    ${product.title}
-                </h3>
-
-                <div class="product-rating">
-                    ⭐ ${product.rating}
-                    (${product.reviews})
-                </div>
-
-                <div class="product-price">
-                    <span class="current-price">
-                        $${product.price}
-                    </span>
-
-                    <span class="original-price">
-                        $${product.originalPrice}
-                    </span>
-                </div>
-
-                <button
-                class="add-to-cart-btn"
-                onclick="window.open('${product.buttonUrl}','_blank')">
-                    View Product
-                </button>
-
-            </div>
-
-        </div>
-
-    `).join("");
-
-}
-
-window.showCartMessage = function() {
-    alert("Cart feature demo");
-};
-
-window.handleNewsletter = function(e){
-    e.preventDefault();
-    alert("Subscribed!");
-};
-
-document.addEventListener("DOMContentLoaded", loadProducts);
-
-</script>
+    </script>
 </body>
 </html>
