@@ -308,6 +308,11 @@
             padding: 4rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
+            display: none; /* Hidden by default */
+        }
+
+        .category-section.active {
+            display: block; /* Only active category shows */
         }
 
         .category-section:nth-child(even) {
@@ -907,7 +912,6 @@
             transform: translateY(0);
         }
     </style>
-<base target="_blank">
 </head>
 <body>
 
@@ -939,7 +943,7 @@
             <span class="hero-badge">Summer Collection 2026</span>
             <h1>Elevate Your Style With Louisy Vuittonies</h1>
             <p>Discover curated women's fashion pieces that blend elegance with modern trends. Shop exclusive deals from top brands.</p>
-            <a href="#collection" class="cta-button">Shop Now</a>
+            <a href="#collection" class="cta-button" onclick="showAllCategories(); return false;">Shop Now</a>
         </div>
     </section>
 
@@ -980,12 +984,13 @@
     <!-- Category Navigation Bar -->
     <div class="category-nav" id="collection">
         <div class="category-nav-container">
-            <a href="#tops" class="cat-nav-btn">👕 Tops</a>
-            <a href="#dresses" class="cat-nav-btn">👗 Dresses</a>
-            <a href="#jeans" class="cat-nav-btn">👖 Jeans</a>
-            <a href="#short" class="cat-nav-btn">🩳 Short</a>
-            <a href="#accessories" class="cat-nav-btn">👜 Accessories</a>
-            <a href="#footwear" class="cat-nav-btn">👠 Footwear</a>
+            <button class="cat-nav-btn active" data-category="all" onclick="filterCategory('all')">📦 All</button>
+            <button class="cat-nav-btn" data-category="tops" onclick="filterCategory('tops')">👕 Tops</button>
+            <button class="cat-nav-btn" data-category="dresses" onclick="filterCategory('dresses')">👗 Dresses</button>
+            <button class="cat-nav-btn" data-category="jeans" onclick="filterCategory('jeans')">👖 Jeans</button>
+            <button class="cat-nav-btn" data-category="short" onclick="filterCategory('short')">🩳 Short</button>
+            <button class="cat-nav-btn" data-category="accessories" onclick="filterCategory('accessories')">👜 Accessories</button>
+            <button class="cat-nav-btn" data-category="footwear" onclick="filterCategory('footwear')">👠 Footwear</button>
         </div>
     </div>
 
@@ -1176,11 +1181,11 @@
             <div class="footer-links">
                 <h4>Shop</h4>
                 <ul>
-                    <li><a href="#dresses">Dresses</a></li>
-                    <li><a href="#tops">Tops & Blouses</a></li>
-                    <li><a href="#footwear">Shoes</a></li>
-                    <li><a href="#accessories">Accessories</a></li>
-                    <li><a href="#jeans">Jeans</a></li>
+                    <li><a href="#dresses" onclick="filterCategory('dresses'); return false;">Dresses</a></li>
+                    <li><a href="#tops" onclick="filterCategory('tops'); return false;">Tops & Blouses</a></li>
+                    <li><a href="#footwear" onclick="filterCategory('footwear'); return false;">Shoes</a></li>
+                    <li><a href="#accessories" onclick="filterCategory('accessories'); return false;">Accessories</a></li>
+                    <li><a href="#jeans" onclick="filterCategory('jeans'); return false;">Jeans</a></li>
                 </ul>
             </div>
             <div class="footer-links">
@@ -1284,6 +1289,46 @@
             });
         }
 
+        // Filter function - shows only selected category
+        window.filterCategory = function(category) {
+            // Update nav buttons
+            document.querySelectorAll('.cat-nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.category === category) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Show/hide category sections
+            if (category === 'all') {
+                categories.forEach(cat => {
+                    const section = document.getElementById(cat);
+                    if (section) section.classList.add('active');
+                });
+            } else {
+                categories.forEach(cat => {
+                    const section = document.getElementById(cat);
+                    if (section) {
+                        if (cat === category) {
+                            section.classList.add('active');
+                        } else {
+                            section.classList.remove('active');
+                        }
+                    }
+                });
+            }
+
+            // Scroll to category section
+            const targetSection = category === 'all' ? document.getElementById('collection') : document.getElementById(category);
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        };
+
+        window.showAllCategories = function() {
+            filterCategory('all');
+        };
+
         window.showCartMessage = function() {
             alert("Cart feature demo");
         };
@@ -1292,30 +1337,6 @@
             e.preventDefault();
             alert("Subscribed!");
         };
-
-        // Highlight active category nav on scroll
-        function highlightActiveNav() {
-            const sections = categories.map(c => document.getElementById(c)).filter(Boolean);
-            const navBtns = document.querySelectorAll('.cat-nav-btn');
-
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.offsetHeight;
-                if (window.scrollY >= sectionTop - 200) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navBtns.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.getAttribute('href') === '#' + current) {
-                    btn.classList.add('active');
-                }
-            });
-        }
-
-        window.addEventListener('scroll', highlightActiveNav);
 
         // Scroll animation observer
         const observer = new IntersectionObserver((entries) => {
@@ -1328,6 +1349,8 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             loadProducts();
+            // Show all categories by default
+            filterCategory('all');
             document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
         });
     </script>
